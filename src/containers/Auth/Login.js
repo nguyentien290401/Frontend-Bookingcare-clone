@@ -4,6 +4,7 @@ import { push } from "connected-react-router";
 import * as actions from "../../store/actions";
 import './Login.scss';
 import { FormattedMessage } from 'react-intl';
+import { handleLogin } from '../../services/userService';
 
 class Login extends Component {
     constructor(props) {
@@ -11,7 +12,8 @@ class Login extends Component {
         this.state = {
             username: '',
             password: '',
-            isShowPassword: false
+            isShowPassword: false,
+            errMessage: ''
         }
     }
 
@@ -27,21 +29,41 @@ class Login extends Component {
         });
     }
 
-    handleClickLogin = () => {
+    handleClickLogin = async () => {
         this.setState({
-            username: this.state.username,
-            password: this.state.password
+            errMessage: ''
         })
 
-        let data = JSON.stringify(this.state);
-        alert(data);
+        // let data = JSON.stringify(this.state);
+        // alert(data);
+
+        try {
+            let data = await handleLogin(this.state.username, this.state.password);
+            if (data && data.errCode !== 0) {
+                this.setState({
+                    errMessage: data.message
+                })
+            }
+            if (data && data.errCode === 0) {
+                this.props.userLoginSuccess(data.user);
+                console.log('Login successfully!');
+            }
+        } catch (e) {
+            if (e.response) {
+                if (e.response.data) {
+                    this.setState({
+                        errMessage: e.response.data.message
+                    })
+                }
+            }
+            console.log(e.response)
+        }
     }
 
     handleEye = () => {
         this.setState({
             isShowPassword: !this.state.isShowPassword
         })
-
     }
 
     render() {
@@ -72,7 +94,9 @@ class Login extends Component {
                             </div>
 
                         </div>
-
+                        <div className="col-12 text-danger">
+                            {this.state.errMessage}
+                        </div>
                         <div className='col-12'>
                             <button className='btn-login'
                                 onClick={() => this.handleClickLogin()}>Login</button>
@@ -91,7 +115,6 @@ class Login extends Component {
                     </div>
                 </div>
             </div>
-
         )
     }
 }
@@ -105,8 +128,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         navigate: (path) => dispatch(push(path)),
-        adminLoginSuccess: (adminInfo) => dispatch(actions.adminLoginSuccess(adminInfo)),
-        adminLoginFail: () => dispatch(actions.adminLoginFail()),
+        // userLoginFail: () => dispatch(actions.adminLoginFail()),
+        userLoginSuccess: (userInfo) => dispatch(actions.userLoginSuccess(userInfo))
     };
 };
 
