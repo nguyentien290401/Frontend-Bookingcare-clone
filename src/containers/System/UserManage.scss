@@ -1,0 +1,69 @@
+title {
+    font-size: xx-large;
+}
+
+#customers {
+    font-family    : Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width          : 100%;
+
+    td,
+    th {
+        border : 1px solid #ddd;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+
+    }
+
+    tr:hover {
+        background-color: #ddd;
+    }
+
+    th {
+        padding-top     : 12px;
+        padding-bottom  : 12px;
+        text-align      : left;
+        background-color: #04AA6D;
+        color           : white;
+    }
+}
+
+.user-modal-container {
+    .modal-content {
+        .modal-header {
+            button {
+                background-color: transparent !important;
+                color           : white;
+                border          : none;
+                font-size       : 27px;
+            }
+        }
+    }
+
+    .user-modal-body {
+        display  : flex;
+        flex-wrap: wrap;
+        gap      : 15px;
+
+        .input-container {
+            display       : flex;
+            flex-direction: column;
+            width         : 49%;
+
+            &.max-width-input {
+                width: 100%;
+            }
+
+            input {
+                border-radius: 3px;
+                border       : 1px solid grey;
+                height       : 30px;
+                outline      : none;
+                padding      : 0 10px;
+            }
+        }
+    }
+}
