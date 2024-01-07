@@ -59,9 +59,9 @@ class HomeCarousel extends Component {
         const { images } = this.props;
 
         return (
-            <>
+            <div className='carousel'>
                 <div
-                    className="carousel"
+                    className="carousel_image"
                     onMouseEnter={this.handleMouseEnter}
                     onMouseLeave={this.handleMouseLeave}
                 >
@@ -103,7 +103,7 @@ class HomeCarousel extends Component {
                         ></div>
                     ))}
                 </div>
-            </>
+            </div>
         );
     }
 }

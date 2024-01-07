@@ -1,4 +1,25 @@
 {
+    "home-header": {
+        "speciality": "Medical Specialty",
+        "search-doctor": "Find a doctor by Specialty",
+        "health-facility": "Health facilities",
+        "select-room": "Choose hospital clinic",
+        "doctor": "Doctor",
+        "select-doctor": "Choose a good doctor",
+        "fee": "Checkup package",
+        "check-health": "General health check",
+        "schedule": "Schedule",
+        "support": "Support"
+    },
+    "home-service": {
+        "full-service": "Comprehensive service",
+        "specialty": "Specialized Examination",
+        "remote": "Remote Examination",
+        "general": "General Examination",
+        "medical": "Medical Tests",
+        "mental": "Mental health",
+        "dental": "Dental Examination"
+    },
     "common": {
         "add": "Add",
         "edit": "Edit",
