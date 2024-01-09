@@ -1,0 +1,117 @@
+.home-handbook {
+    height: 427px;
+
+    .handbook-container {
+        padding       : 20px 10px;
+        display       : flex;
+        flex-direction: column;
+
+        .handbook-header {
+            height         : 52px;
+            margin-bottom  : 20px;
+            padding        : 0 20px;
+            display        : flex;
+            justify-content: space-between;
+
+            .handbook-header-title {
+                display    : inline-block;
+                line-height: 52px;
+                font-weight: 600;
+                font-size  : 24px;
+            }
+
+            .handbook-header-button {
+                background-color: rgb(218, 243, 246);
+                padding         : 10px 8px;
+                border-radius   : 16px;
+                font-size       : 20px;
+                color           : rgb(52, 146, 158);
+                font-weight     : 600;
+                display         : flex;
+                align-items     : center;
+                cursor          : pointer;
+                opacity         : 0.8;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+
+        .handbook-body {
+
+            /* the parent */
+            .slick-list {
+                background: #fff;
+            }
+
+
+            .handbook-customize {
+                height       : 242px;
+                border-radius: 16px;
+                padding      : 20px 20px;
+
+                .bg-img {
+                    background-image   : url('../../../../assets/handbook/ultherapy-la-gi.png');
+                    background-size    : cover;
+                    /* Scale hình ảnh để nó vừa với phần tử cha */
+                    background-position: center;
+                    /* Căn giữa hình ảnh */
+                    background-repeat  : no-repeat;
+                    /* Ngăn chặn việc lặp lại hình ảnh */
+
+                    height       : 170px;
+                    border-radius: 16px;
+                    border       : 2px solid rgb(241, 241, 241);
+                }
+
+                .handbook-title-cover {
+                    width: 305px;
+
+                    .handbook-title {
+                        font-size  : 18px;
+                        font-weight: 600;
+                        margin-top : 1.5rem;
+
+                        white-space  : nowrap;
+                        overflow     : hidden;
+                        text-overflow: ellipsis;
+                    }
+                }
+
+            }
+
+            .slick-prev,
+            .slick-next {
+                width : 0 !important;
+                margin: 40px;
+            }
+        }
+
+        .handbook-footer {
+            height         : 50px;
+            margin-left    : 20px;
+            margin-top     : 20px;
+            margin-right   : 20px;
+            display        : flex;
+            justify-content: flex-end;
+
+            .button-slide {
+                width          : 105px;
+                padding        : 0 10px;
+                border         : 1px solid gainsboro;
+                border-radius  : 16px;
+                display        : flex;
+                justify-content: space-between;
+                align-items    : center;
+
+                .button-left i,
+                .button-right i {
+                    font-size: 24px;
+                    color    : #34929e;
+                    cursor   : pointer;
+                }
+            }
+        }
+    }
+}

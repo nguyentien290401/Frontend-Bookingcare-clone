@@ -4,7 +4,7 @@
 
     .service-wrapper {
         width  : 100%;
-        padding: 10px 35px;
+        padding: 10px 30px;
 
         .service-title {
             width      : 100%;
@@ -14,7 +14,7 @@
         }
 
         .service-content {
-            margin-top           : 20px;
+            margin               : 20px 0;
             width                : 100%;
             display              : grid;
             grid-template-columns: repeat(2, 1fr);

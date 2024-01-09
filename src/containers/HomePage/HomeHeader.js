@@ -2,14 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './HomeHeader.scss';
 
-import { imagesBannerList } from './Section/ImagesBanner';
 import { FormattedMessage } from 'react-intl';
 import logo from '../../assets/Logo.png';
 import { LANGUAGES } from '../../utils/constant';
 import { changeLanguageApp } from '../../store/actions/appActions';
-
-import HomeCarousel from './Section/HomeCarousel/HomeCarousel';
-import HomeService from './Section/HomeService/HomeService';
 
 class HomeHeader extends Component {
 
@@ -68,10 +64,6 @@ class HomeHeader extends Component {
                         </div>
                     </div>
                 </div>
-
-                <HomeCarousel images={imagesBannerList} />
-
-                <HomeService />
             </>
 
 

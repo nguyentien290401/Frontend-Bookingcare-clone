@@ -1,0 +1,125 @@
+.home-doctor {
+    height         : 540px;
+    background     : url('../../../../assets/doctor/background-doctor.png') right center no-repeat;
+    background-size: cover;
+
+    .doctor-container {
+        padding       : 20px 10px;
+        display       : flex;
+        flex-direction: column;
+
+        .doctor-header {
+            height         : 52px;
+            margin         : 30px 0;
+            padding        : 0 20px;
+            display        : flex;
+            justify-content: space-between;
+
+            .doctor-header-title {
+                display    : inline-block;
+                line-height: 52px;
+                font-weight: 600;
+                font-size  : 24px;
+            }
+
+            .doctor-header-button {
+                background-color: rgb(218, 243, 246);
+                padding         : 10px 8px;
+                border-radius   : 16px;
+                font-size       : 20px;
+                color           : rgb(52, 146, 158);
+                font-weight     : 600;
+                display         : flex;
+                align-items     : center;
+                cursor          : pointer;
+                border          : 1px solid black;
+                opacity         : 0.8;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+
+        .doctor-body {
+
+            /* the parent === container */
+            .slick-list {
+                background: none;
+            }
+
+            /* the slides */
+            .slick-slide {
+                padding-left : 40px;
+                padding-right: 40px;
+            }
+
+            .doctor-customize {
+                height       : 360px;
+                border-radius: 16px;
+                padding      : 20px 20px;
+                cursor       : pointer;
+
+                .bg-img {
+                    background-image   : url('../../../../assets/doctor/doctor-check.jpg');
+                    background-size    : cover;
+                    /* Scale hình ảnh để nó vừa với phần tử cha */
+                    background-position: center;
+                    /* Căn giữa hình ảnh */
+                    background-repeat  : no-repeat;
+                    /* Ngăn chặn việc lặp lại hình ảnh */
+
+                    height       : 230px;
+                    border-radius: 50%;
+                }
+
+                .doctor-description {
+                    text-align: center;
+
+                    .doctor-title {
+                        font-size  : 18px;
+                        font-weight: 600;
+                        margin-top : 1.5rem;
+                    }
+
+                    .doctor-specialty {
+                        font-size  : 16px;
+                        font-weight: 400;
+                        margin-top : 10px;
+                    }
+                }
+
+
+            }
+
+            .slick-prev {
+                height       : 45px !important;
+                width        : 40px !important;
+                z-index      : 10;
+                margin-left  : 30px !important;
+                background   : #45c3d2 !important;
+                border-radius: 8px;
+
+                opacity: 0.7;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+
+            .slick-next {
+                height       : 45px !important;
+                width        : 40px !important;
+                z-index      : 10;
+                margin-right : 30px !important;
+                background   : #45c3d2 !important;
+                border-radius: 8px;
+                opacity      : 0.7;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}

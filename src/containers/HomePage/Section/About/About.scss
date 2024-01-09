@@ -1,0 +1,71 @@
+.home-about {
+    height         : 470px;
+    background     : url('../../../../assets/about/About_item_background.png') left no-repeat;
+    background-size: cover;
+
+    .about-container {
+        margin: 30px;
+
+        .about-header {
+            font-size  : 36px;
+            font-weight: 600;
+            text-align : center;
+            padding-top: 20px;
+        }
+
+        .about-body {
+            margin-top: 30px;
+            width     : 100%;
+            height    : 332px;
+            display   : flex;
+
+            .content-left {
+                width: 50%;
+
+                .video-cover {
+                    position                 : relative;
+                    width                    : 100%;
+                    height                   : 0;
+                    /* Đặt chiều cao cố định của khung chứa */
+                    padding-bottom           : 51.25%;
+                    /* Tỷ lệ khung hình 16   :9 ~ padding-bottom: 56.25%*/
+
+                    .video-frame {
+                        position     : absolute;
+                        top          : 0;
+                        left         : 0;
+                        width        : 100%;
+                        height       : 332px;
+                        border-radius: 16px;
+                    }
+                }
+            }
+
+            .content-right {
+                width                : 50%;
+                display              : grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap                  : 24px;
+                margin               : 80px;
+                margin-top           : unset;
+
+                .channel-link {
+                    border-radius  : 10px;
+                    height         : 65px;
+                    display        : flex;
+                    justify-content: center;
+                    align-items    : center;
+                    background     : white;
+                    cursor         : pointer;
+
+                    .channel-img {
+                        width          : 166px;
+                        height         : 40px;
+                        background     : url('../../../../assets//about/vnexpress_icon.png') center center no-repeat;
+                        background-size: contain;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,13 +1,10 @@
-body {
-    box-sizing: border-box;
-    width     : 100%;
-    height    : 100vh;
-}
-
 .home-header-container {
     width           : 100%;
     height          : 78px;
     padding         : 0 20px;
+    position        : fixed;
+    top             : 0;
+    z-index         : 100;
     background-color: #edfffa;
 
     .home-header-content {
@@ -123,6 +120,11 @@ body {
             }
         }
     }
+}
+
+// Đặt khoảng cách cho content tất cả component trong section so với navbar
+.section-content {
+    padding-top: 78px;
 }
 
 .home-header-search {
