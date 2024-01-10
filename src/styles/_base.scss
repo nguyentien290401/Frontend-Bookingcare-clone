@@ -3,14 +3,14 @@
  */
 body,
 html {
-  background-image    : "#fff";
-  background-repeat   : no-repeat;
-  background-size     : cover;
-  font-family         : $fontmain;
-  font-size           : $base-size - 2px;
-  height              : 100vh;
-  width               : 100vw;
-  // overflow-x       : hidden;
+  background-image : "#fff";
+  background-repeat: no-repeat;
+  background-size  : cover;
+  font-family      : $fontmain;
+  font-size        : $base-size - 2px;
+  height           : 100vh;
+  width            : 100vw;
+  overflow         : hidden;
 }
 
 .btn {
