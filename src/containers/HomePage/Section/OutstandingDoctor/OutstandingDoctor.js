@@ -9,6 +9,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import actionTypes from '../../../../store/actions/actionTypes';
+import { FormattedMessage } from 'react-intl';
 
 class OutstandingDoctor extends Component {
     constructor(props) {
@@ -16,6 +17,10 @@ class OutstandingDoctor extends Component {
         this.state = {
             arrDoctors: []
         }
+    }
+
+    handleAfterChange = () => {
+
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -28,7 +33,6 @@ class OutstandingDoctor extends Component {
 
     componentDidMount() {
         this.props.loadTopDoctor();
-
     }
 
     render() {
@@ -36,17 +40,22 @@ class OutstandingDoctor extends Component {
         let { language } = this.props;
         const settings = {
             // dots: true,
-            infinite: true,
+            infinite: false,
             speed: 1000,
             slidesToShow: 4,
-            slidesToScroll: 1
+            slidesToScroll: 1,
+            afterChange: this.handleAfterChange
         };
         return (
             <div className='home-doctor'>
                 <div className='doctor-container'>
                     <div className='doctor-header'>
-                        <span className='doctor-header-title'>Bác sĩ nổi bật</span>
-                        <div className='doctor-header-button'>Xem thêm</div>
+                        <span className='doctor-header-title'>
+                            <FormattedMessage id="home-page.outstanding-doctor" />
+                        </span>
+                        <div className='doctor-header-button'>
+                            <FormattedMessage id="home-page.more-infor" />
+                        </div>
                     </div>
                     <div className='doctor-body'>
                         <Slider {...settings}>

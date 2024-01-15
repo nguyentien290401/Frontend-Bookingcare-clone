@@ -1,0 +1,40 @@
+.manage-doctor-container {
+    margin: 20px 30px;
+
+    .doctor-title {
+        margin-bottom: 20px;
+        text-align   : center;
+        font-size    : 24px;
+        font-weight  : 600;
+    }
+
+    .more-infor {
+        width  : 100%;
+        display: flex;
+        gap    : 20px;
+        margin : 20px 0;
+
+        .content-left {
+            width: 40%;
+        }
+
+        .content-right {
+            width: 60%;
+        }
+
+    }
+
+    .save-content-doctor {
+        margin-top      : 20px;
+        border          : none;
+        border-radius   : 5px;
+        padding         : 5px;
+        background-color: gainsboro;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+
+}

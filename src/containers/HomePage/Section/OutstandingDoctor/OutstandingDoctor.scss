@@ -54,6 +54,11 @@
                 padding-right: 40px;
             }
 
+            // Show/Hide arrow logic of slides
+            .slick-disabled {
+                display: none !important;
+            }
+
             .doctor-customize {
                 height       : 360px;
                 border-radius: 16px;
