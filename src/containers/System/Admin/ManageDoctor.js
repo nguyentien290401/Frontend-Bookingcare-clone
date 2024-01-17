@@ -3,18 +3,15 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions';
 import './ManageDoctor.scss';
+import { LANGUAGES } from '../../../utils';
 
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 
 import Select from 'react-select';
+import { result } from 'lodash';
 
-const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-];
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -25,19 +22,48 @@ class ManageDoctor extends Component {
         this.state = {
             contentMarkdown: '',
             contentHTML: '',
-            selectedDoctor: '',
-            description: ''
+            selectedOption: '',
+            description: '',
+            listDoctors: []
         }
     }
 
     componentDidMount() {
-
+        this.props.fetchAllDoctorsRedux();
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.allDoctors !== this.props.allDoctors) {
+            let dataSelect = this.buildDataInputSelect(this.props.allDoctors);
+            this.setState({
+                listDoctors: dataSelect
+            })
+        }
 
+        if (prevProps.language !== this.props.language) {
+            let dataSelect = this.buildDataInputSelect(this.props.allDoctors);
+            this.setState({
+                listDoctors: dataSelect
+            })
+        }
     }
 
+    buildDataInputSelect = (inputData) => {
+        let result = [];
+        let { language } = this.props;
+        if (inputData && inputData.length > 0) {
+            inputData.map((item, index) => {
+                let object = {};
+                let labelVi = `${item.lastName} ${item.firstName}`;
+                let labelEn = `${item.firstName} ${item.lastName}`;
+
+                object.label = language === LANGUAGES.VI ? labelVi : labelEn;
+                object.value = item.id;
+                result.push(object);
+            })
+        }
+        return result;
+    }
 
     handleEditorChange = ({ html, text }) => {
         this.setState({
@@ -47,12 +73,18 @@ class ManageDoctor extends Component {
     }
 
     handleSaveContentMarkdown = () => {
-        console.log('Check state: ', this.state);
+        this.props.saveDoctorDetailRedux({
+            contentHTML: this.state.contentHTML,
+            contentMarkdown: this.state.contentMarkdown,
+            description: this.state.description,
+            doctorId: this.state.selectedOption.value
+        })
+        console.log('check doctor id: ', this.state.doctorId)
     }
 
-    handleChange = (selectedDoctor) => {
-        this.setState({ selectedDoctor }, () =>
-            console.log(`Option selected:`, this.state.selectedDoctor)
+    handleChange = (selectedOption) => {
+        this.setState({ selectedOption }, () =>
+            console.log(`Option selected:`, this.state.selectedOption)
         );
     };
 
@@ -63,8 +95,8 @@ class ManageDoctor extends Component {
     }
 
     render() {
-        console.log('Check props redux: ', this.props.users);
-        console.log('Check state: ', this.state.userRedux);
+
+        console.log('Check state: ', this.state);
         let arrUsers = this.state.userRedux;
 
         return (
@@ -75,9 +107,9 @@ class ManageDoctor extends Component {
                         <div className='content-left'>
                             <label>Chọn bác sĩ</label>
                             <Select
-                                defaultValue={this.state.selectedDoctor}
+                                defaultValue={this.state.selectedOption}
                                 onChange={this.handleChange}
-                                options={options}
+                                options={this.state.listDoctors}
                             />
                         </div>
                         <div className='content-right'>
@@ -110,14 +142,15 @@ class ManageDoctor extends Component {
 
 const mapStateToProps = state => {
     return {
-        users: state.admin.users
+        allDoctors: state.admin.allDoctors,
+        language: state.app.language,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchUserRedux: () => dispatch(actions.fetchAllUsersStart()),
-        deleteAUserRedux: (id) => dispatch(actions.deleteAUser(id)),
+        fetchAllDoctorsRedux: (id) => dispatch(actions.fetchAllDoctorsStart()),
+        saveDoctorDetailRedux: (data) => dispatch(actions.saveDetailDoctorsStart(data)),
     };
 };
 

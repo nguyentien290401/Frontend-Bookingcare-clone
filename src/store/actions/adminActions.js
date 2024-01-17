@@ -1,7 +1,7 @@
 import actionTypes from './actionTypes';
 import {
     getAllCodeService, createNewUserService, getAllUsers, deleteUserService,
-    editUserService, getTopDoctorService
+    editUserService, getTopDoctorService, getAllDoctorsService, saveDoctorDetailService
 } from '../../services/userService';
 import { toast } from "react-toastify";
 
@@ -225,6 +225,54 @@ export const fetchTopDoctorStart = () => {
             console.log('FETCH_TOP_DOCTORS_FAILED: ', e)
             dispatch({
                 type: actionTypes.FETCH_TOP_DOCTORS_FAILED
+            })
+        }
+    }
+}
+
+export const fetchAllDoctorsStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllDoctorsService();
+            if (res && res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_ALL_DOCTORS_SUCCESS,
+                    dataDr: res.data
+                })
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_ALL_DOCTORS_FAILED,
+                })
+            }
+        } catch (e) {
+            console.log('FETCH_ALL_DOCTORS_FAILED: ', e)
+            dispatch({
+                type: actionTypes.FETCH_ALL_DOCTORS_FAILED
+            })
+        }
+    }
+}
+
+export const saveDetailDoctorsStart = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await saveDoctorDetailService(data);
+            if (res && res.errCode === 0) {
+                toast.success("Saved detail doctor infomation successfully!");
+                dispatch({
+                    type: actionTypes.SAVE_DETAIL_DOCTOR_SUCCESS,
+                })
+            } else {
+                toast.error("Saved detail doctor infomation error!");
+                dispatch({
+                    type: actionTypes.SAVE_DETAIL_DOCTOR_FAILED,
+                })
+            }
+        } catch (e) {
+            console.log('SAVE_DETAIL_DOCTOR_FAILED: ', e);
+            toast.error("Saved detail doctor infomation error!");
+            dispatch({
+                type: actionTypes.SAVE_DETAIL_DOCTOR_FAILED
             })
         }
     }
