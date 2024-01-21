@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 
 import { connect } from 'react-redux';
 import './OutstandingDoctor.scss';
@@ -33,6 +34,11 @@ class OutstandingDoctor extends Component {
 
     componentDidMount() {
         this.props.loadTopDoctor();
+    }
+
+    handleDetailDoctor = (doctor) => {
+        console.log('Check doctor info: ', doctor);
+        this.props.history.push(`/detail-doctor/${doctor.id}`);
     }
 
     render() {
@@ -70,7 +76,9 @@ class OutstandingDoctor extends Component {
                                     let nameEn = `${item.positionData.valueEn}, ${item.firstName} ${item.lastName}`;
 
                                     return (
-                                        <div className='doctor-customize' key={index}>
+                                        <div className='doctor-customize'
+                                            key={index}
+                                            onClick={() => this.handleDetailDoctor(item)}>
                                             <div className='outer-bg'>
                                                 <div className='bg-img'
                                                     style={{ backgroundImage: `url(${imageBase64})` }}
@@ -106,4 +114,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OutstandingDoctor);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(OutstandingDoctor));

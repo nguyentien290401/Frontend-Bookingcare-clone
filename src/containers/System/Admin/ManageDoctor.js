@@ -3,16 +3,15 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions';
 import './ManageDoctor.scss';
-import { LANGUAGES } from '../../../utils';
+import { LANGUAGES, CRUD_ACTIONS } from '../../../utils';
+import { getDetailDoctorService } from '../../../services/userService';
 
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 
 import Select from 'react-select';
-import { result } from 'lodash';
-
-
+import { has, result } from 'lodash';
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
 class ManageDoctor extends Component {
@@ -24,7 +23,8 @@ class ManageDoctor extends Component {
             contentHTML: '',
             selectedOption: '',
             description: '',
-            listDoctors: []
+            listDoctors: [],
+            hasOldData: false
         }
     }
 
@@ -73,19 +73,38 @@ class ManageDoctor extends Component {
     }
 
     handleSaveContentMarkdown = () => {
+        // hasOldData will check when the contentMarkdown of one id have data or not
+        let { hasOldData } = this.state;
         this.props.saveDoctorDetailRedux({
             contentHTML: this.state.contentHTML,
             contentMarkdown: this.state.contentMarkdown,
             description: this.state.description,
-            doctorId: this.state.selectedOption.value
+            doctorId: this.state.selectedOption.value,
+            action: hasOldData === true ? CRUD_ACTIONS.EDIT : CRUD_ACTIONS.ADD
         })
         console.log('check doctor id: ', this.state.doctorId)
     }
 
-    handleChange = (selectedOption) => {
-        this.setState({ selectedOption }, () =>
-            console.log(`Option selected:`, this.state.selectedOption)
-        );
+    handleChangeSelect = async (selectedOption) => {
+        this.setState({ selectedOption });
+
+        let res = await getDetailDoctorService(selectedOption.value);
+        if (res && res.errCode === 0 && res.data && res.data.Markdown) {
+            let markdown = res.data.Markdown;
+            this.setState({
+                contentHTML: markdown.contentHTML,
+                contentMarkdown: markdown.contentMarkdown,
+                description: markdown.description,
+                hasOldData: true
+            })
+        } else {
+            this.setState({
+                contentHTML: '',
+                contentMarkdown: '',
+                description: '',
+                hasOldData: false
+            })
+        }
     };
 
     handleOnchangeDescription = (event) => {
@@ -95,9 +114,8 @@ class ManageDoctor extends Component {
     }
 
     render() {
-
-        console.log('Check state: ', this.state);
         let arrUsers = this.state.userRedux;
+        let { hasOldData } = this.state;
 
         return (
             <React.Fragment>
@@ -108,7 +126,7 @@ class ManageDoctor extends Component {
                             <label>Chọn bác sĩ</label>
                             <Select
                                 defaultValue={this.state.selectedOption}
-                                onChange={this.handleChange}
+                                onChange={this.handleChangeSelect}
                                 options={this.state.listDoctors}
                             />
                         </div>
@@ -127,12 +145,17 @@ class ManageDoctor extends Component {
                             style={{ height: '500px' }}
                             renderHTML={text => mdParser.render(text)}
                             onChange={this.handleEditorChange}
+                            value={this.state.contentMarkdown}
                         />
                     </div>
                     <button
-                        className='save-content-doctor'
                         onClick={() => this.handleSaveContentMarkdown()}
-                    >Lưu thông tin</button>
+                        className={hasOldData === true ? 'save-content-doctor' : 'create-content-doctor'}
+                    >
+                        {hasOldData === true ?
+                            <span>Lưu thông tin</span> : <span>Tạo thông tin</span>
+                        }
+                    </button>
                 </div>
             </React.Fragment >
 

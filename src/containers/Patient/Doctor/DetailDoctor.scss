@@ -1,0 +1,46 @@
+.detail-doctor-container {
+    margin-top: 78px;
+    height    : 500px;
+
+
+    .intro-doctor {
+        height        : 180px;
+        margin        : 0 40px;
+        display       : flex;
+        flex-direction: row;
+
+        .content-left {
+            width              : 120px;
+            height             : 120px;
+            border-radius      : 50%;
+            margin             : 10px 20px;
+            background-position: center;
+            background-repeat  : no-repeat;
+            background-size    : cover;
+
+        }
+
+        .content-right {
+            width  : 80%;
+            padding: 10px;
+
+            span {
+                display: block;
+            }
+
+            .doctor {
+                font-size  : 24px;
+                font-weight: 600;
+            }
+        }
+    }
+
+    .detail-infor-container {
+        padding         : 10px 40px;
+        background-color: #f9f9f9;
+
+        img {
+            width: 100%;
+        }
+    }
+}
