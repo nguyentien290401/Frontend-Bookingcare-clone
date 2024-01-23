@@ -9,19 +9,33 @@
     }
 
     .pick-hour-container {
-        padding  : 20px 0;
-        display  : flex;
-        gap      : 20px;
-        flex-wrap: wrap;
+        padding        : 20px 10px;
+        display        : flex;
+        justify-content: space-between;
+        flex-wrap      : wrap;
 
         button {
-            padding: 5px 15px;
-            border : 1px solid gray;
-            margin : 0 10px;
+            outline: none;
+            cursor : pointer;
         }
+
+        .btn-schedule {
+            padding         : 5px 10px;
+            border          : 1px solid grey !important;
+            border-radius   : 8px;
+            margin          : 5px;
+            background-color: white;
+
+            &.active {
+                background-color: gainsboro;
+            }
+
+
+        }
+
     }
 
     .btn-save-schedule {
-        margin-top: 20px;
+        margin-top: 10px;
     }
 }
