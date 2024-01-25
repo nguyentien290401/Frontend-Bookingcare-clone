@@ -9,6 +9,7 @@ import moment from 'moment';
 import "./ManageSchedule.scss";
 import { toast } from "react-toastify";
 import _ from 'lodash';
+import { saveBulkCreateScheduleDoctor } from '../../../services/userService';
 
 class ManageSchedule extends Component {
     constructor(props) {
@@ -87,7 +88,7 @@ class ManageSchedule extends Component {
         }
     }
 
-    handleSaveSchedule = () => {
+    handleSaveSchedule = async () => {
         let { rangeTime, selectedDoctor, currentDate } = this.state;
         let result = [];
 
@@ -100,7 +101,9 @@ class ManageSchedule extends Component {
             return;
         }
 
-        let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
+        // let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
+        let formatedDate = new Date(currentDate).getTime();
+
         if (rangeTime && rangeTime.length > 0) {
             let selectedTime = rangeTime.filter(item => item.isSelected === true);
             if (selectedTime && selectedTime.length > 0) {
@@ -108,15 +111,21 @@ class ManageSchedule extends Component {
                     let obj = {};
                     obj.doctorId = selectedDoctor.value;
                     obj.date = formatedDate;
-                    obj.time = schedule.keyMap;
+                    obj.timeType = schedule.keyMap;
                     result.push(obj);
                 })
             } else {
                 toast.error("Invalid select tiame: ");
                 return;
             }
+
+            // Send data 
+            let res = await saveBulkCreateScheduleDoctor({
+                arrSchedule: result,
+                doctorId: selectedDoctor.value,
+                formatedDate: formatedDate
+            });
         }
-        console.log('Check công ty breda như nào? : ->', result);
     }
 
     render() {
