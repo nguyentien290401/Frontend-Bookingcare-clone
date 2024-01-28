@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 
-import HomeHeader from '../../HomePage/HomeHeader';
-import './DetailDoctor.scss';
 import { getDetailDoctorService } from '../../../services/userService';
 import { LANGUAGES } from '../../../utils/constant';
+
+import HomeHeader from '../../HomePage/HomeHeader';
+import './DetailDoctor.scss';
+import ScheduleDoctor from './ScheduleDoctor';
 
 class DetailDoctor extends Component {
     constructor(props) {
@@ -67,7 +69,14 @@ class DetailDoctor extends Component {
                         </div>
                     </div>
 
-                    <div className='schedule-doctor'></div>
+                    <div className='schedule-doctor'>
+                        <div className='content-left'>
+                            <ScheduleDoctor
+                                doctorIdFromParent={detailDoctor && detailDoctor.id ? detailDoctor.id : -1}
+                            />
+                        </div>
+                        <div className='content-right'></div>
+                    </div>
 
                     <div className='detail-infor-container'>
                         {detailDoctor && detailDoctor.Markdown && detailDoctor.Markdown.contentHTML &&
