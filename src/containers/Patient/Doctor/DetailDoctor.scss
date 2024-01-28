@@ -36,9 +36,10 @@
     }
 
     .schedule-doctor {
-        margin : 40px;
-        display: flex;
-        height : 200px;
+        margin    : 40px;
+        margin-top: unset;
+        display   : flex;
+        height    : 200px;
 
         .content-left {
             width: 50%;
