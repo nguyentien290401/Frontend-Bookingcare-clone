@@ -5,7 +5,7 @@ import moment from 'moment';
 import localization from 'moment/locale/vi';
 import { getScheduleDoctorByDate } from '../../../services/userService';
 import { LANGUAGES } from '../../../utils/constant';
-
+import { FormattedMessage } from 'react-intl';
 
 class ScheduleDoctor extends Component {
     constructor(props) {
@@ -16,39 +16,66 @@ class ScheduleDoctor extends Component {
         }
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         let { language } = this.props;
+        let allDays = this.getArrDays(language);
 
-        console.log('moment vi: ', moment(new Date()).format('dddd - DD/MM'));
-        console.log('moment')
-        this.setArrDays(language);
+        this.setState({
+            allDays: allDays,
+        })
     }
+
 
     capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
-    setArrDays = (language) => {
+    getArrDays = (language) => {
         let allDays = [];
         for (let i = 0; i < 7; i++) {
             let object = {};
             if (language === LANGUAGES.VI) {
-                let labelVi = moment(new Date()).add(i, 'days').format('dddd - DD/MM');
-                object.label = this.capitalizeFirstLetter(labelVi);
+                if (i === 0) {
+                    let ddMM = moment(new Date()).format('DD/MM');
+                    let today = `Hôm nay - ${ddMM}`;
+                    object.label = today;
+                } else {
+                    let labelVi = moment(new Date()).add(i, 'days').format('dddd - DD/MM');
+                    object.label = this.capitalizeFirstLetter(labelVi);
+                }
+
             } else {
-                object.label = moment(new Date()).add(i, 'days').locale('en').format('ddd - DD/MM')
+                if (i === 0) {
+                    let ddMM = moment(new Date()).format('DD/MM');
+                    let today = `Today - ${ddMM}`;
+                    object.label = today;
+                } else {
+                    object.label = moment(new Date()).add(i, 'days').locale('en').format('ddd - DD/MM');
+                }
+
             }
             object.value = moment(new Date()).add(i, 'days').startOf('day').valueOf();
             allDays.push(object);
         }
-        this.setState({
-            allDays: allDays
-        })
+
+        return allDays;
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.language !== this.props.language) {
-            this.setArrDays(this.props.language);
+            let allDays = this.getArrDays(this.props.language);
+            this.setState({
+                allDays: allDays
+            })
+        }
+
+        if (prevProps.doctorIdFromParent !== this.props.doctorIdFromParent) {
+            let allDays = this.getArrDays(this.props.language);
+            let res = await getScheduleDoctorByDate(this.props.doctorIdFromParent, allDays[0].value);
+
+            this.setState({
+                allAvailableTime: res.data ? res.data : []
+            })
         }
     }
 
@@ -91,22 +118,41 @@ class ScheduleDoctor extends Component {
                 </div>
                 <div className='all-available-time'>
                     <div className='text-calendar'>
-                        <i className='fas fa-calendar-alt'><span>Lịch khám</span></i>
+                        <i className='fas fa-calendar-alt'>
+                            <span>
+                                <FormattedMessage id="patient.detail-doctor.schedule" />
+                            </span>
+                        </i>
                     </div>
                     <div className='time-content'>
                         {allAvailableTime && allAvailableTime.length > 0 ?
-                            allAvailableTime.map((item, index) => {
-                                let timeDisplay = language === LANGUAGES.VI ?
-                                    item.timeTypeData.valueVi : item.timeTypeData.valueEn;
-                                return (
-                                    <button key={index}>
-                                        {timeDisplay}
-                                    </button>
-                                )
-                            })
-
+                            <>
+                                <div className='time-content-btns'>
+                                    {allAvailableTime.map((item, index) => {
+                                        let timeDisplay = language === LANGUAGES.VI ?
+                                            item.timeTypeData.valueVi : item.timeTypeData.valueEn;
+                                        return (
+                                            <button key={index}
+                                                className={language === LANGUAGES.VI ? 'btn-vi' : 'btn-en'}
+                                            >
+                                                {timeDisplay}
+                                            </button>
+                                        )
+                                    })
+                                    }
+                                </div>
+                                <div className='text-booking'>
+                                    <span>
+                                        <FormattedMessage id="patient.detail-doctor.choose" /> &nbsp;
+                                        <i className='far fa-hand-point-up'></i> &nbsp;
+                                        <FormattedMessage id="patient.detail-doctor.book-free" />
+                                    </span>
+                                </div>
+                            </>
                             :
-                            <dib>Không có lịch hẹn trong thời gian này, vui lòng chọn thời gian khác !</dib>
+                            <div>
+                                <FormattedMessage id="patient.detail-doctor.no-schedule" />
+                            </div>
                         }
                     </div>
                 </div>

@@ -125,6 +125,12 @@ class ManageSchedule extends Component {
                 doctorId: selectedDoctor.value,
                 formatedDate: formatedDate
             });
+
+            if (res && res.errCode === 0) {
+                toast.success("Save infor succeed !");
+            } else {
+                toast.error("Error saveBlukCreateScheduleDoctor !");
+            }
         }
     }
 
@@ -159,7 +165,7 @@ class ManageSchedule extends Component {
                                 className="form-control"
                                 onChange={this.handleOnchangeDataPicker}
                                 value={this.state.currentDate}
-                                minDate={new Date()}
+                                minDate={new Date().setHours(0, 0, 0, 0)}
                             />
                         </div>
 

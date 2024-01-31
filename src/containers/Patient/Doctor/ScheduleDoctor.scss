@@ -32,25 +32,39 @@
         }
 
         .time-content {
-            display  : flex;
-            gap      : 15px;
-            flex-wrap: wrap;
+            .time-content-btns {
+                display  : flex;
+                gap      : 15px;
+                flex-wrap: wrap;
 
-            button {
-                padding         : 8px 10px;
-                border          : none;
-                outline         : none;
-                background-color: gainsboro;
-                min-width       : 120px;
-                border-radius   : 3px;
-                font-weight     : 600;
-                color           : #333;
+                button {
+                    padding         : 8px 10px;
+                    border          : none;
+                    outline         : none;
+                    background-color: gainsboro;
 
-                &:hover {
-                    background-color: #45c3d2;
-                    color           : white;
+                    border-radius: 3px;
+                    font-weight  : 600;
+                    color        : #333;
+
+                    &:hover {
+                        background-color: #45c3d2;
+                        color           : white;
+                    }
+                }
+
+                .btn-vi {
+                    min-width: 120px;
+                }
+
+                .btn-en {
+                    min-width: 170px;
                 }
             }
+        }
+
+        .text-booking {
+            margin-top: 10px;
         }
     }
 }

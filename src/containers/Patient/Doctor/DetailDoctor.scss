@@ -39,7 +39,8 @@
         margin    : 40px;
         margin-top: unset;
         display   : flex;
-        height    : 200px;
+        min-height: 200px;
+        padding   : 10px 0;
 
         .content-left {
             width: 50%;
