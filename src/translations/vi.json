@@ -71,5 +71,14 @@
             "choose": "Chọn",
             "book-free": "và đặt (Phí đặt lịch 0đ)"
         }
+    },
+    "admin": {
+        "manage-doctor": {
+            "title": "Tạo thêm thông tin Doctor",
+            "choose-doctor": "Chọn bác sĩ",
+            "introduction": "Thông tin giới thiệu",
+            "save-infor": "Lưu thông tin",
+            "create-infor": "Tạo thông tin"
+        }
     }
 }
