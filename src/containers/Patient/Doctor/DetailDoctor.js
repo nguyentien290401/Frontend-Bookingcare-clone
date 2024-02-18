@@ -7,6 +7,7 @@ import { LANGUAGES } from '../../../utils/constant';
 import HomeHeader from '../../HomePage/HomeHeader';
 import './DetailDoctor.scss';
 import ScheduleDoctor from './ScheduleDoctor';
+import ExtraInforDoctor from './ExtraInforDoctor';
 
 class DetailDoctor extends Component {
     constructor(props) {
@@ -80,7 +81,11 @@ class DetailDoctor extends Component {
                                 doctorIdFromParent={this.state.currentDoctorId}
                             />
                         </div>
-                        <div className='content-right'></div>
+                        <div className='content-right'>
+                            <ExtraInforDoctor
+                                doctorIdFromParent={this.state.currentDoctorId}
+                            />
+                        </div>
                     </div>
 
                     <div className='detail-infor-container'>
