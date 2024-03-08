@@ -3,12 +3,15 @@ import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import './BookingModal.scss';
 import { Modal } from 'reactstrap';
+import ProfileDoctor from '../ProfileDoctor';
+import { getProfileDoctorById } from '../../../../services/userService';
+import _ from 'lodash';
 
 class BookingModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            doctorId: ''
         }
     }
 
@@ -25,6 +28,9 @@ class BookingModal extends Component {
     render() {
         // Toggle={}
         let { language, isOpenModal, closeBookingClose, dataTime } = this.props;
+        let doctorId = dataTime && !_.isEmpty(dataTime) ? dataTime.doctorId : '';
+
+        console.log('check props modal: ', this.props);
 
         return (
             <Modal
@@ -44,10 +50,9 @@ class BookingModal extends Component {
 
                     <div className='booking-modal-header'>
                         <div className='doctor-infor'>
-
-                        </div>
-                        <div className='price'>
-                            Giá khám 500.000VND
+                            <ProfileDoctor
+                                doctorId={doctorId}
+                            />
                         </div>
                         <div className='row'>
                             <div className='col-6 form-group'>
